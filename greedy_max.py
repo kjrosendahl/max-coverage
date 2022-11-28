@@ -35,9 +35,9 @@ def run_greedy(file_name):
     # runs by removing one element at a time from sets 
     # bounded by (sum(|s|) for s in F) = O(p)
     # see exercise 35.3-3 in textbook 
-    # TODO: ask prof if we are allowed to return less than min(m, k) if we found a solution which covers all elements (no unecessary sets)
+    # TODO: ask prof if we are allowed to return less than min(m, k) if we found a solution which covers all elements (no unnecessary sets)
     for size in range(max_size, 0, -1):
-        if size in lengths: 
+        if lengths.get(size):
             while len(lengths[size]) != 0: 
                 # return if already selected a maximum of k sets 
                 if len(Q) == k: 
@@ -82,4 +82,4 @@ def run_instances(num_files):
 ## ---------------------------------- ## 
 
 if __name__ == "__main__": 
-    run_instances(3)
+    run_instances(1)

@@ -9,8 +9,8 @@ def parse_instance(file_name):
         for row in reader: 
             s, elmnt = row[:]
             if s in set_members.keys(): 
-                set_members[s].append(elmnt)
+                set_members[s].add(elmnt)
             else: 
-                set_members[s] = [elmnt]
+                set_members[s] = set(elmnt)
         return(row1, set_members)
 

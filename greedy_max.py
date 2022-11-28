@@ -8,7 +8,7 @@ def run_greed(file_name):
     # runs in O(p)
     row, sets = parse_instance(file_name) 
     m, n, k, p = row[:]
-    print(k)
+    k = int(k)
 
     # holds cardinality of largest set to start
     # runs in O(m)
@@ -27,21 +27,29 @@ def run_greed(file_name):
             set_members[elmnt].append(s)
         lengths[len(elmnts)].add(s)
 
-    # E holds selected sets 
-    E = [] 
+    # Q holds selected sets 
+    Q = [] 
 
+    # perform greedy algorithm: iterate through decreasing size of sets
     for size in range(max_size, 0, -1):
         if size in lengths: 
             while len(lengths[size]) != 0: 
-                x = lengths[size].pop() 
-                E.append(x)
-                for e in sets[x]: 
+                # return if already selected a maximum of k sets 
+                if len(Q) == k: 
+                    return Q
+                # select a set X that covers most amount of available elements
+                X = lengths[size].pop() 
+                Q.append(X)
+                # for each new element that X covered, consider all other unselected sets s_2 that has the new element
+                for e in sets[X]: 
                     for s in set_members[e]: 
-                        if x != s: 
+                        if X != s: 
                             s_2 = sets[s]
+                            # remove now covered element from s_2 
                             lengths[len(s_2)].remove(s)
                             s_2.remove(e)
+                            # decrease the number of available elemenets that s_2 could cover 
                             lengths[len(s_2)].add(s)
-    return E
+    return Q
 
-print(run_greed('instance01.txt'))
+print(run_greed('instance02.txt'))

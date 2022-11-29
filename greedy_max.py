@@ -7,8 +7,7 @@ def run_greedy(file_name):
     # parse the text file for sets and elements
     # runs in O(p)
     row, sets = parse_instance(file_name) 
-    k = row[2]
-    k = int(k)
+    m, k = int(row[0]), int(row[2])
 
     # holds cardinality of largest set to start
     # runs in O(m)
@@ -35,7 +34,6 @@ def run_greedy(file_name):
     # runs by removing one element at a time from sets 
     # bounded by (sum(|s|) for s in F) = O(p)
     # see exercise 35.3-3 in textbook 
-    # TODO: ask prof if we are allowed to return less than min(m, k) if we found a solution which covers all elements (no unnecessary sets)
     for size in range(max_size, 0, -1):
         if lengths.get(size):
             while len(lengths[size]) != 0: 
@@ -55,6 +53,14 @@ def run_greedy(file_name):
                             s_2.remove(e)
                             # decrease the number of available elements that s_2 could cover 
                             lengths[len(s_2)].add(s)
+    
+    # if we have found sets that cover all elements but don't have min(m,k) sets, then randomly add extra sets 
+    # runs in O(m)
+    set_indices = set(s for s in sets.keys()) 
+    sets_left = set_indices.difference(set(Q))
+    while len(Q) < min(m,k): 
+        Q.append(sets_left.pop()) 
+
     return Q
 
 ## ---------------------------------- ## 

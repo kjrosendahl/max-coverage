@@ -84,11 +84,11 @@ RUNTIME ANALYSIS
 - constructing set_members dict checks each element in each set, runs in O(p)
 - constructing lengths dict checks lengths of sets, runs in O(m)
 - main loop: 
-    - we continuously remove elements from sets one at a time 
+    - we continuously remove elements from sets one at a time (set removals are O(1))
     - never modify a set S after we add it to Q 
     - since we never modify S in lengths dict after adding to Q, never revisit set S for Q 
-    - thus, this is bounded by number of elements in all sets
+    - thus, this is bounded by number of elements in all sets (since we use dictionaries)
     --> bounded by p --> runs in O(p)
-- to make Q have min(m,k) sets, we add sets randomly. since k <= m, this runs in O(k)
+- to make Q have min(m,k) sets, we add sets randomly if needed. since k <= m, this runs in O(k)
 
 TOTAL RUNTIME: O(m + k + p) = O(m + k + n + p)

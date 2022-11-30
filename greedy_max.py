@@ -4,19 +4,20 @@ import csv
 
 def run_greedy(file_name): 
 
-    # parse the text file for sets and elements
+    # Parse the text file for sets and elements
     # runs in O(p)
-    row, sets = parse_instance(file_name) 
-    m, k = int(row[0]), int(row[2])
+    params, sets = parse_instance(file_name) 
+    m, k = int(params[0]), int(params[2])
 
-    # holds cardinality of largest set to start
+    # Holds size of largest set to start
     # runs in O(m)
     max_size = max(len(sets[s]) for s in sets.keys())
 
-    # set_members holds list of sets that have a particular element (key)
+    # dictionaries used to keep track of: 
+    # which elements belong in which sets 
+    # number of uncovered elements in each set
+    # allow for faster variant of greedy algorithm 
     set_members = defaultdict(list)
-
-    # lengths holds the lengths of each set 
     lengths = defaultdict(set)
 
     # for set_members, this runs in O(p)
@@ -30,28 +31,24 @@ def run_greedy(file_name):
     Q = [] 
 
     # perform greedy algorithm: iterate through decreasing size of sets
-    # TODO: verify this works in O(p) time 
-    # runs by removing one element at a time from sets 
-    # bounded by (sum(|s|) for s in F) = O(p)
-    # see exercise 35.3-3 in textbook 
     for size in range(max_size, 0, -1):
         if lengths.get(size):
             while len(lengths[size]) != 0: 
                 # return if already selected a maximum of k sets 
                 if len(Q) == k: 
                     return Q
-                # select a set X that covers most amount of available elements
+                # select a set X that covers most amount of uncovered elements
                 X = lengths[size].pop() 
                 Q.append(X)
                 # for each new element that X covered, consider all other unselected sets s_2 that has the new element
-                for e in sets[X]: 
-                    for s in set_members[e]: 
+                for elmnt in sets[X]: 
+                    for s in set_members[elmnt]: 
                         if X != s: 
-                            s_2 = sets[s]
+                            s_2 = [s]
                             # remove now covered element from s_2 
                             lengths[len(s_2)].remove(s)
-                            s_2.remove(e)
-                            # decrease the number of available elements that s_2 could cover 
+                            s_2.remove(elmnt)
+                            # decrease the number of uncovered elements that s_2 contains
                             lengths[len(s_2)].add(s)
     
     # if we have found sets that cover all elements but don't have min(m,k) sets, then randomly add extra sets 
@@ -79,6 +76,7 @@ def run_instances(num_files):
         
         # run greedy algorithm 
         Q = run_greedy(input_file_name)
+        # d = [(1,2),(1,2)]
 
         # write to solution file
         with open(output_file_name, 'w') as csvfile: 

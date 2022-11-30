@@ -39,9 +39,9 @@ def run_greedy(file_name):
         if there exists a set X of length = size: 
             while there exists a set X of length = size: 
                 add X to Q 
-                for each element in X: 
-                    for each other set s_2 containing e: 
-                        remove e from s_2 in set_members dict
+                for each element elmnt in X: 
+                    for each other set s_2 containing elmnt: 
+                        remove elmnt from s_2 in set_members dict
                         decrease len(s_2) in lengths dict
     
     sets_left = sets - {Q}
@@ -71,9 +71,9 @@ Main loop:
         - in lengths dict, decrease the size of s_2 
     
 Note: 
-We never modify the sets dictionary for a set S after we add it to Q.
+We never modify the sets dictionary for a set X after we add it to Q.
 This is because we remove newly covered elements from the remaining sets. 
-If we later add S_2 to Q, S_2 will never have elements S had, since we removed all elements S had from S_2.
+If we later add S' to Q, S' will never have elements S had, since we removed all elements S had from S'.
 
 -----------------------------------
 
@@ -85,8 +85,8 @@ RUNTIME ANALYSIS
 - constructing lengths dict checks lengths of sets, runs in O(m)
 - main loop: 
     - we continuously remove elements from sets one at a time (set removals are O(1))
-    - never modify a set S after we add it to Q 
-    - since we never modify S in lengths dict after adding to Q, never revisit set S for Q 
+    - never modify a set X after we add it to Q 
+    - since we never modify X in lengths dict after adding to Q, never revisit set X for Q 
     - thus, this is bounded by number of elements in all sets (since we use dictionaries)
     --> bounded by p --> runs in O(p)
 - to make Q have min(m,k) sets, we add sets randomly if needed. since k <= m, this runs in O(k)

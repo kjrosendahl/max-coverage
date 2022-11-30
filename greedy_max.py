@@ -42,14 +42,14 @@ def run_greedy(file_name):
                 Q.append(X)
                 # for each new element that X covered, consider all other unselected sets s_2 that has the new element
                 for elmnt in sets[X]: 
-                    for s in set_members[elmnt]: 
-                        if X != s: 
-                            s_2 = [s]
+                    for s_2 in set_members[elmnt]: 
+                        if X != s_2: 
+                            els = sets[s_2]
+                            lengths[len(els)].remove(s_2)
                             # remove now covered element from s_2 
-                            lengths[len(s_2)].remove(s)
-                            s_2.remove(elmnt)
+                            els.remove(elmnt)
                             # decrease the number of uncovered elements that s_2 contains
-                            lengths[len(s_2)].add(s)
+                            lengths[len(els)].add(s_2)
     
     # if we have found sets that cover all elements but don't have min(m,k) sets, then randomly add extra sets 
     # runs in O(m)

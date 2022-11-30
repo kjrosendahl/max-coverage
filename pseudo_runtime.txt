@@ -1,0 +1,94 @@
+PSEUDOCODE 
+
+----------------------------------
+HELPER FUNCTION: parse_instance
+INPUT: file name to read instance from 
+OUTPUT: - dictionary: dict[set_index] = {set_members}
+        - parameters m, n, k, p
+
+def parse_instance(file_name): 
+    parameters = row1(file_name)
+
+    for row in file: 
+        set_index, set_element = row[0], row[1]
+        add set_index, set_element to dictionary
+
+-----------------------------------
+Greedy Algorithm: run_greedy
+INPUT: file name to read instance from 
+OUTPUT: array of sets chosen greedily
+
+def run_greedy(file_name): 
+
+    params, sets = parse_instance(file_name)
+    m, k = params[0], params[2]
+
+    max_size = max(length(sets))
+
+    set_members = dict(list)
+    lengths = dict(set)
+
+    for each set s: 
+        for each element e in set s: 
+            add e, s to set_members dictionary 
+        add len(s), s to lengths dictionary 
+
+    Q = []
+
+    for size in (max_size, 0, -1): 
+        if there exists a set X of length = size: 
+            while there exists a set X of length = size: 
+                add X to Q 
+                for each element in X: 
+                    for each other set s_2 containing e: 
+                        remove e from s_2 in set_members dict
+                        decrease len(s_2) in lengths dict
+    
+    sets_left = sets - {Q}
+    while len(Q) < min(m,k): 
+        add random set from sets_left to Q 
+    
+    return Q 
+
+-----------------------------------
+COMMENTS: 
+
+To implement the faster variant, we rely on three things: 
+
+1. lengths dictionary 
+    - keeps track of the number of uncovered elements in each set, known as its size
+2. set_members dictionary 
+    - keeps track of which elements belong in which sets (never modify)
+3. sets dictionary 
+    - keeps track of sets and elements in the set that are uncovered
+    - continuously removes elements from each set as they are covered
+
+Main loop: 
+    - using lengths dict, we find a set X which covers the most elements not covered so far
+    - add X to Q 
+    - for each now covered element, use set_members dict to locate all sets s_2 that contained covered element
+        - in sets dict, remove covered element from the s_2
+        - in lengths dict, decrease the size of s_2 
+    
+Note: 
+We never modify the sets dictionary for a set S after we add it to Q.
+This is because we remove newly covered elements from the remaining sets. 
+If we later add S_2 to Q, S_2 will never have elements S had, since we removed all elements S had from S_2.
+
+-----------------------------------
+
+RUNTIME ANALYSIS
+
+- parse_instance reads p+1 rows, runs in O(p)
+- finding max_size checks all sets, runs in O(m) 
+- constructing set_members dict checks each element in each set, runs in O(p)
+- constructing lengths dict checks lengths of sets, runs in O(m)
+- main loop: 
+    - we continuously remove elements from sets one at a time 
+    - never modify a set S after we add it to Q 
+    - since we never modify S in lengths dict after adding to Q, never revisit set S for Q 
+    - thus, this is bounded by number of elements in all sets
+    --> bounded by p --> runs in O(p)
+- to make Q have min(m,k) sets, we add sets randomly. since k <= m, this runs in O(k)
+
+TOTAL RUNTIME: O(m + k + p) = O(m + k + n + p)

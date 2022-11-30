@@ -31,6 +31,7 @@ def run_greedy(file_name):
     Q = [] 
 
     # perform greedy algorithm: iterate through decreasing size of sets
+    # runs in O(p)
     for size in range(max_size, 0, -1):
         if lengths.get(size):
             while len(lengths[size]) != 0: 
@@ -76,7 +77,6 @@ def run_instances(num_files):
         
         # run greedy algorithm 
         Q = run_greedy(input_file_name)
-        # d = [(1,2),(1,2)]
 
         # write to solution file
         with open(output_file_name, 'w') as csvfile: 

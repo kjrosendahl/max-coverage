@@ -11,15 +11,16 @@
 To run the algorithm, execute *greedy_max.py* with each instance file in the directory. It will write the solution files in the same location. There is no need to specify the number of instances -- as long as the first instance is "instance01" and the file names don't skip numbers, it will run on all of them. 
 
 ***
-
 ### Counter-example
 We have included an instance file where the greedy algorithm does not find the optimal solution. *greedy_max.py* also writes the solution file for this instance. 
 
 Our sets are as followed: 
+
 S1 = {1, 2, 3, 4, 5, 6} 
 S2 = {5, 6, 8, 9} 
 S3 = {1, 4, 7, 10} 
 S4 = {2, 5, 7, 8, 11} 
 S5 = {3, 6, 9, 12} 
 S6 = {10, 11} 
+
 We let *k* = 3. The greedy algorithm will return Q = {S1, S4, S5}, covering all elements but 10. There is a better solution, S = {S3, S4, S5}, which covers all elements. 

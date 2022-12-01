@@ -8,9 +8,12 @@
 - **pseudo_runtime.txt** - pseudocode for *parse_instance.py* and the greedy algorithm. Includes explanation and comments on our implemementation. Includes runtime analysis. 
 - **counter_ex** - holds instance for an example where the greedy algorithm does not find an optimal solution. 
 
-To run the algorithm, execute *greedy_max.py* with each instance file in the directory. It will write the solution files in the same location. There is no need to specify the number of instances -- as long as the first instance is "instance01" and the file names don't skip numbers, it will run on all of them. 
+To run the algorithm, execute *greedy_max.py* with each instance file in the directory. It will write the solution files in the same location. 
+
+There is no need to specify the number of instances -- as long as the first instance is "instance01" and the file names don't skip numbers, it will run on all of them. 
 
 ***
+
 ### Counter-example
 We have included an instance file where the greedy algorithm does not find the optimal solution. *greedy_max.py* also writes the solution file for this instance. 
 

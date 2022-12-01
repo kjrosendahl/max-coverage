@@ -1,6 +1,7 @@
 from parse_instance import parse_instance
 from collections import defaultdict
 import csv
+import os.path
 
 def run_greedy(file_name): 
 
@@ -63,9 +64,10 @@ def run_greedy(file_name):
 
 ## ---------------------------------- ## 
 
-def run_instances(num_files): 
-
-    for i in range(1,num_files+1): 
+def run_instances(): 
+ 
+    i = 1
+    while True: 
         if i < 10: 
             file_number = str(0) + str(i)
         else: 
@@ -75,6 +77,9 @@ def run_instances(num_files):
         input_file_name = 'instance' + file_number 
         output_file_name = 'solution' + file_number
         
+        if not os.path.isfile(input_file_name): 
+            break
+
         # run greedy algorithm 
         Q = run_greedy(input_file_name)
 
@@ -82,6 +87,8 @@ def run_instances(num_files):
         with open(output_file_name, 'w') as csvfile: 
             writer = csv.writer(csvfile, delimiter = ' ')
             writer.writerow(Q)
+
+        i += 1
 
     Q = run_greedy('counter_ex')
     with open('counter_ex_sol', 'w') as csvfile: 
@@ -91,4 +98,4 @@ def run_instances(num_files):
 ## ---------------------------------- ## 
 
 if __name__ == "__main__": 
-    run_instances(2)
+    run_instances()

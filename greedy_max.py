@@ -83,7 +83,12 @@ def run_instances(num_files):
             writer = csv.writer(csvfile, delimiter = ' ')
             writer.writerow(Q)
 
+    Q = run_greedy('counter_ex')
+    with open('counter_ex_sol', 'w') as csvfile: 
+            writer = csv.writer(csvfile, delimiter = ' ')
+            writer.writerow(Q)
+
 ## ---------------------------------- ## 
 
 if __name__ == "__main__": 
-    run_instances(1)
+    run_instances(2)

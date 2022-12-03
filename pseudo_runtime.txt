@@ -63,6 +63,8 @@ To implement the faster variant, we rely on three things:
     - keeps track of sets and elements in the set that are uncovered
     - continuously removes elements from each set as they are covered
 
+Set removal, key lookups, etc., all run in O(1). Thus, we avoid a longer runtime. 
+
 Main loop: 
     - using lengths dict, we find a set X which covers the most elements not covered so far
     - add X to Q 
@@ -70,11 +72,11 @@ Main loop:
         - in sets dict, remove covered element from the s_2
         - in lengths dict, decrease the size of s_2 
     
-Note: 
-We never modify the sets dictionary for a set X after we add it to Q.
+Notes: 
+- We never modify the sets dictionary for a set X after we add it to Q.
 This is because we remove newly covered elements from the remaining sets. 
 If we later add S' to Q, S' will never have elements S had, since we removed all elements S had from S'.
-
+- the idea of using sets/dictionaries for this code came from Peter de Rivas via Stack Exchange. 
 -----------------------------------
 
 RUNTIME ANALYSIS
@@ -87,7 +89,7 @@ RUNTIME ANALYSIS
     - we continuously remove elements from sets one at a time (set removals are O(1))
     - never modify a set X after we add it to Q 
     - since we never modify X in lengths dict after adding to Q, never revisit set X for Q 
-    - thus, this is bounded by number of elements in all sets (since we use dictionaries)
+    - thus, this is bounded by number of elements in all sets 
     --> bounded by p --> runs in O(p)
 - to make Q have min(m,k) sets, we add sets randomly if needed. since k <= m, this runs in O(k)
 

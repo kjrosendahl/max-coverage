@@ -4,7 +4,7 @@
 
 #### File Breakdown: 
 - **parse_instance.py** - helper function used by the greedy algorithm to read instance files. 
-- **greedy_max.py** - runs the greedy algorithm on specified number of instances. Reads each instance file and writes the solution to another file. 
+- **greedy_max.py** - runs the greedy algorithm on all instances. Reads each instance file and writes the solution to another file. 
 - **pseudo_runtime.txt** - pseudocode for *parse_instance.py* and the greedy algorithm. Includes explanation and comments on our implemementation. Includes runtime analysis. 
 - **counter_ex** - holds instance for an example where the greedy algorithm does not find an optimal solution. 
 

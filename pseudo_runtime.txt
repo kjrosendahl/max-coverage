@@ -37,12 +37,15 @@ def run_greedy(file_name):
 
     for size in (max_size, 0, -1): 
         if there exists a set X of length = size: 
-            while there exists a set X of length = size: 
-                add X to Q 
-                for each element elmnt in X: 
-                    for each other set s_2 containing elmnt: 
-                        remove elmnt from s_2 in set_members dict
-                        decrease len(s_2) in lengths dict
+            while there exists a set X of length = size:
+                if Q has min(k,m) sets: 
+                    return Q 
+                else:
+                    add X to Q 
+                    for each element elmnt in X: 
+                        for each other set s_2 containing elmnt: 
+                            remove elmnt from s_2 in set_members dict
+                            decrease len(s_2) in lengths dict
     
     sets_left = sets - {Q}
     while len(Q) < min(m,k): 

@@ -1,5 +1,5 @@
 # CS430: Team Project
-### Team Members: Kaylee Rosendahl, Charles Sainegh, Ibrahim Marou
+### Team Members: Kaylee Rosendahl, Charles Saineghi, Ibrahim Marou
 *Due: 12/2/22*
 
 #### File Breakdown: 
